@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaction History</title>
+</head>
+<body>
+    <h1>Transaction History</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Transaction Type</th>
+                <th>Amount</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody id="transaction-table">
+            <!-- Transaction rows will be populated here via JavaScript -->
+        </tbody>
+    </table>
+    <p><a href="{{ url_for('home') }}">Back to Home</a></p>
+    <script>
+        fetch('/transaction_history/1') // Adjust account ID as necessary
+            .then(response => response.json())
+            .then(data => {
+                const table = document.getElementById('transaction-table');
+                data.forEach(transaction => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${transaction.transaction_type}</td>
+                        <td>${transaction.amount}</td>
+                        <td>${new Date(transaction.date).toLocaleString()}</td>
+                    `;
+                    table.appendChild(row);
+                });
+            });
+    </script>
+</body>
+</html>
