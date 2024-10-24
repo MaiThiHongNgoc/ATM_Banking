@@ -3,16 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Home - ATM Banking</title>
 </head>
 <body>
-    <h1>Welcome to the Banking System</h1>
-    <nav>
-        <a href="{{ url_for('logout') }}">Logout</a>
-        <a href="{{ url_for('transaction_history', account_id=1) }}">Transaction History</a>
-        <a href="{{ url_for('change_password') }}">Change Password</a>
-    </nav>
-    <h2>Your Dashboard</h2>
-    <!-- Add additional dashboard content here -->
+    <h1>Welcome to ATM Banking</h1>
+    
+    {% if account %}
+        <h2>Account Information</h2>
+        <p><strong>Account ID:</strong> {{ account.account_id }}</p>
+        <p><strong>Account Holder:</strong> {{ account.name }}</p>
+        <p><strong>Balance:</strong> ${{ account.balance }}</p>
+    {% else %}
+        <p>No account information available.</p>
+    {% endif %}
+    
+    <a href="/deposit">Deposit</a> | 
+    <a href="/withdraw">Withdraw</a> | 
+    <a href="/transfer">Transfer</a> | 
+    <a href="/transaction_history/1">Transaction History</a> | 
+    <a href="/change_password">Change Password</a> | 
+    <a href="/logout">Logout</a>
 </body>
 </html>
